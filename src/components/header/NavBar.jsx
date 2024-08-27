@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NavBar = ({toggle, setToggle}) => {
   return (
@@ -9,18 +10,18 @@ const NavBar = ({toggle, setToggle}) => {
       className="navbar"
     >
       <ul className="nav-links">
-        <li onClick={() => setToggle(false)} className="nav-link">
+        <Link to="/" onClick={() => setToggle(false)} className="nav-link">
           <i className="bi bi-house"></i> Home
-        </li>
-        <li onClick={() => setToggle(false)} className="nav-link">
+        </Link>
+        <Link to="/posts" onClick={() => setToggle(false)} className="nav-link">
           <i className="bi bi-stickies"></i> Posts
-        </li>
-        <li onClick={() => setToggle(false)} className="nav-link">
+        </Link>
+        <Link to="create-post" onClick={() => setToggle(false)} className="nav-link">
           <i className="bi bi-journal-plus"></i> Create
-        </li>
-        <li onClick={() => setToggle(false)} className="nav-link">
+        </Link>
+        <Link to="admin-dashbord" onClick={() => setToggle(false)} className="nav-link">
           <i className="bi bi-person-check"></i> Admin Dashbord
-        </li>
+        </Link>
       </ul>
     </nav>
   );

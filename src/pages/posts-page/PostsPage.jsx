@@ -1,10 +1,24 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import './posts-page.css'
+import PostList from '../../components/posts/PostList';
+import Sidebar from '../../components/sidebar/Sidebar';
+import { categories, posts } from '../../dummyData';
+import Pagination from '../../components/pagination/Pagination';
 const PostsPage = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }
+  , []);
+
   return (
-    <div>
-      <h1>PosrsPage</h1>
-    </div>
+    <>
+    <section className="posts-page"> 
+      <PostList posts={posts}/>
+      <Sidebar categories={categories}/>
+    </section>
+     <Pagination/>
+    </>
   );
 };
 

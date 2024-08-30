@@ -72,7 +72,7 @@
     background-color: var(--white-color);
     color: var(--blue-color);
     border-radius: 10px;
-    padding: 6px 10px;
+    padding: 8px 10px;
 }
 
 .header-right-link:hover {
@@ -83,13 +83,110 @@
     margin-right: 5px;
 }
 
+.header-right-user-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.header-right-username {
+    font-size: 21px;
+    font-weight: 500;
+    color: var(--main-color);
+    margin-right: 10px;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.header-right-user-photo {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.header-right-dropdown {
+    position: absolute;
+    top: 120%;
+    right: 0%;
+    width: 200px;
+    background-color: var(--main-color);
+    border: 1px solid var(--white-color);
+    border-radius: 5px;
+    padding: 5px;
+    text-align-last: left;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+.header-dropdown-item {
+    color: var(--primary-color);
+    font-size: 21px;
+    font-weight: 500;
+    padding: 10px 15px;
+    margin-top: 5px;
+    border-radius: 5px;
+    transition: 0.3s all ease-in-out; 
+}
+
+.header-dropdown-item a {
+    display: block;
+    width: 100%;
+    color: var(--primary-color);
+}
+
+.header-dropdown-item i {
+    margin-right: 5px;
+}
+
+.header-dropdown-item:hover a {
+    color: var(--white-color);
+}
+
+.header-dropdown-item:hover {
+    background-color: var(--blue-color);
+    color: var(--white-color);
+}
 
 /* Responsive Design */
 
+/* Large Desktops */
+@media (min-width: 1200px) {
+    .header {
+        padding: 0 40px;
+    }
+
+    .nav-link {
+        font-size: 22px;
+    }
+
+    .header-right-link {
+        font-size: 18px;
+    }
+}
+
+/* Desktops and Large Tablets */
+@media (max-width: 1199px) {
+    .header {
+        padding: 0 30px;
+    }
+
+    .nav-link {
+        font-size: 20px;
+    }
+
+    .header-right-link {
+        font-size: 17px;
+    }
+}
+
+/* Tablets */
 @media (max-width: 990px) {
     .header-left {
         flex-direction: row-reverse;
     }
+
     .header-menu {
         display: block;
         margin-right: 20px;
@@ -117,16 +214,52 @@
         font-size: 25px;
         margin: 10px 0;
     }
+
+    .header-right-link {
+        font-size: 18px;
+    }
 }
 
+/* Small Tablets and Large Phones */
+@media (max-width: 768px) {
+    .header {
+        padding: 0 20px;
+    }
 
+    .nav-link {
+        font-size: 22px;
+    }
+
+    .header-right-link {
+        font-size: 18px;
+        padding: 8px 10px;
+    }
+
+    .header-logo span {
+        font-size: 25px;
+    }
+
+    .header-logo i {
+        font-size: 28px;
+    }
+
+    .header-menu {
+        margin-right: 15px;
+    }
+}
+
+/* Small Phones */
 @media (max-width: 520px) {
     .header {
         padding: 0 10px;
     }
 
-    .header-logo {
-        font-size: 19px;
+    .header-logo span{
+        font-size: 23px;
+    }
+
+    .header-logo i{
+        font-size: 25px;
     }
 
     .header-right-link {
@@ -140,5 +273,21 @@
 
     .nav-link {
         font-size: 20px;
+    }
+}
+
+/* Extra Small Phones */
+@media (max-width: 375px) {
+    .header-logo span {
+        font-size: 20px;
+    }
+
+    .header-right-link {
+        font-size: 14.7px;
+        padding: 5px 4px;
+    }
+
+    .nav-link {
+        font-size: 18px;
     }
 }

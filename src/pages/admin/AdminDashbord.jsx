@@ -1,10 +1,13 @@
 import React from 'react';
-
+import AdminSidebar from './AdminSidebar';
+import AdminMain from './AdminMain';
+import './admin.css'
 const AdminDashbord = () => {
   return (
-    <div>
-      <h1>AdminDashbord</h1>
-    </div>
+    <section className='admin-dashbord'>
+      <AdminSidebar />
+      <AdminMain />
+    </section>
   );
 };
 

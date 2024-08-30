@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function PostItem({post}) {
-    console.log("hello", post)
   return (
     <div>
       <div className="post-item">
@@ -24,7 +23,7 @@ function PostItem({post}) {
           <div className="post-item-details">
             <h4 className="post-item-title">{post.title}</h4>
             <Link
-              to={`/post/categories/${post.category}`}
+              to={`/posts/categories/${post.category}`}
               className="post-item-category"
             >
               {post.category}

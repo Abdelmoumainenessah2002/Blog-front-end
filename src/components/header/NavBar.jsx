@@ -1,7 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 const NavBar = ({toggle, setToggle}) => {
+
+  const user = useSelector((state) => state.auth.user);
+
   return (
     <nav
       style={{
@@ -16,12 +21,24 @@ const NavBar = ({toggle, setToggle}) => {
         <Link to="/posts" onClick={() => setToggle(false)} className="nav-link">
           <i className="bi bi-stickies"></i> Posts
         </Link>
-        <Link to="create-post" onClick={() => setToggle(false)} className="nav-link">
-          <i className="bi bi-journal-plus"></i> Create
-        </Link>
-        <Link to="admin-dashbord" onClick={() => setToggle(false)} className="nav-link">
-          <i className="bi bi-person-check"></i> Admin Dashbord
-        </Link>
+        {user && (
+          <Link
+            to="/posts/create-post"
+            onClick={() => setToggle(false)}
+            className="nav-link"
+          >
+            <i className="bi bi-journal-plus"></i> Create
+          </Link>
+        )}
+        {user?.isAdmin && (
+          <Link
+            to="admin-dashbord"
+            onClick={() => setToggle(false)}
+            className="nav-link"
+          >
+            <i className="bi bi-person-check"></i> Admin Dashbord
+          </Link>
+        )}
       </ul>
     </nav>
   );

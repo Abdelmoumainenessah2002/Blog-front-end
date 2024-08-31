@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import './forms.css'
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/apiCalls/AuthApiCall";
+import { registerUser } from "../../redux/apiCalls/authApiCall";
 
 
 const Register = () => {

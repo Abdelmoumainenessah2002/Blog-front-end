@@ -3,7 +3,7 @@
   import { Link } from 'react-router-dom';
   import { toast } from 'react-toastify';
   import { useDispatch} from 'react-redux';
-  import { loginUser } from '../../redux/apiCalls/AuthApiCall';
+  import { loginUser } from '../../redux/apiCalls/authApiCall';
 
   const Login = () => {
     const [email, setEmail] = useState("");

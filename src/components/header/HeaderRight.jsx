@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { logoutUser } from "../../redux/apiCalls/AuthApiCall";
+import { logoutUser } from "../../redux/apiCalls/authApiCall";
 
 const HeaderRight = () => {
 
@@ -20,7 +20,7 @@ const HeaderRight = () => {
           >
             <span className="header-right-username">{user?.username}</span>
             <img
-              src={user.profilePhoto.url}
+              src={user?.profilePhoto?.url || '/default-avatar.png'}
               alt="user photo-image"
               className="header-right-user-photo"
             />

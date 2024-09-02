@@ -2,9 +2,12 @@ import React from "react";
 import "./add-comment.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { createComment } from "../../redux/apiCalls/commentApiCall";
 
+function AddComment({postId}) {
 
-function AddComment() {
+  const dispatch = useDispatch();
 
   const [text, setText] = useState("");
 
@@ -13,7 +16,8 @@ function AddComment() {
     e.preventDefault();
     if(text.trim() === "") return toast.error("please write something!")
 
-    console.log({text})
+    // create comment
+    dispatch(createComment({ text, postId }));
     setText("")
   }
 

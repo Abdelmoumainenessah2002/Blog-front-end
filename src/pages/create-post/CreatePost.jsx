@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate } from "react-router-dom";
 import "./create-post.css";
+import { createPost } from "../../redux/apiCalls/postsApiCall";
+import { ThreeDots } from "react-loader-spinner";
 
 const CreatePost = () => {
 
+  // redux hooks 
+  const dispatch = useDispatch();
+  const {isPostCreated, loading} = useSelector((state) => state.post);
+
+  // react router hook
+  const navigate = useNavigate();
+
+  // local state
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [file, setFile] = useState(null);
+
 
   // form submit handler
   const formSubmitHandler = async (e) => {
@@ -26,11 +39,16 @@ const CreatePost = () => {
     formData.append("category", category);
     formData.append("image", file);
 
-    // @TODO - send data to the server
+    // dispatch create post action
+    dispatch(createPost(formData));
+  
+  };
 
-    console.log({title,category, description, file});
-    
-  }
+  useEffect(() => {
+    if (isPostCreated) {
+      navigate("/");
+    }
+  } , [isPostCreated, navigate]);
 
   return (
     <section className="create-post">
@@ -70,7 +88,19 @@ const CreatePost = () => {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button type="submit" className="create-post-btn">
-          Publish
+          {loading ? (
+            <ThreeDots
+              className="create-post-loader"
+              visible={true}
+              height="24"
+              width="80"
+              color="#778697"
+              radius="9"
+              ariaLabel="three-dots-loading"
+            />
+          ) : (
+            "Publish"
+          )}
         </button>
       </form>
     </section>

@@ -21,6 +21,15 @@
     border-radius: 5px;
 }
 
+.page.active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.page.disabled {
+    display: none;
+}
+
 .page.previous,
 .page.next {
     width: max-content;

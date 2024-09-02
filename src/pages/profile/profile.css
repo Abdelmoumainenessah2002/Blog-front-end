@@ -114,6 +114,15 @@
     top: calc(100vh - 50px);
 }
 
+.profile-loader {
+    min-height: calc(100vh - 130px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
 .delete-account-btn:hover {
     color: var(--white-color);
     background-color: var(--red-color);

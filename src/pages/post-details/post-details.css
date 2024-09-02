@@ -99,6 +99,15 @@
     cursor: pointer;
 }
 
+.post-details-comment-info {
+    font-size: 17px;
+}
+
+.post-details-comment-info a {
+    color: var(--blue-color);
+    text-decoration: none;
+}
+
 
 /* media query */
 

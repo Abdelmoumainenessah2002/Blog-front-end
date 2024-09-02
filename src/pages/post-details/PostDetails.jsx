@@ -130,7 +130,12 @@ const PostDetails = () => {
           </div>
         )}
       </div>
-      <AddComment />
+      {
+        user ? <AddComment postId={post?._id} /> :
+        <p className="post-details-comment-info">
+          To add a comment, please <Link to="/login">login</Link> or <Link to="/register">register</Link>
+        </p>
+      }
       <CommentList comments={post?.comments} />
       {updatePost && (
         <UpdatePostModel post={post} setUpdatePost={setUpdatePost} />

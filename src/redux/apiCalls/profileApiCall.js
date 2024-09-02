@@ -16,12 +16,12 @@ export function getUserProfile(userId) {
 }
 
 // upload profile photo
-export function uploadProfilePhoto(newPhoto, userId) {
+export function uploadProfilePhoto(newPhoto) {
   return async (dispatch, getState) => {
     try {
       const { data } = await request.post(
         `/api/users/profile/profile-photo-upload`,
-        newPhoto,
+        newPhoto, // Send the FormData directly
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -30,17 +30,17 @@ export function uploadProfilePhoto(newPhoto, userId) {
         }
       );
 
+      // Update the profile photo in the profile slice
       dispatch(profileActions.setProfilePhoto(data.profilePhoto));
 
-      // update user photo in auth slice
+      // Update the user photo in the auth slice
       dispatch(authActions.setUserPhoto(data.profilePhoto));
       toast.success(data.message);
 
-      // update user photo in local storage
+      // Update user photo in local storage
       const user = JSON.parse(localStorage.getItem("userInfo"));
-      user.profilePhoto = data?.profilePhoto;
+      user.profilePhoto = data.profilePhoto;
       localStorage.setItem("userInfo", JSON.stringify(user));
-
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -49,7 +49,6 @@ export function uploadProfilePhoto(newPhoto, userId) {
 
 
 // update user profile
-// upload profile photo
 export function updateProfile(userId, profile) {
   return async (dispatch, getState) => {
     try {
@@ -63,8 +62,6 @@ export function updateProfile(userId, profile) {
         }
       );
 
-      console.log(data);
-
       dispatch(profileActions.updateProfile(data));
 
       // update user photo in auth slice
@@ -77,6 +74,38 @@ export function updateProfile(userId, profile) {
 
     } catch (error) {
       toast.error(error.response.data.message);
+    }
+  };
+}
+
+
+// delete user account
+export function deleteProfile(userId) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(profileActions.setLoading());
+      const { data } = await request.delete(
+        `/api/users/profile/${userId}`,
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+
+      dispatch(profileActions.setIsProfileDeleted());
+      toast.success(data?.message);
+
+      setTimeout(() => {
+        dispatch(profileActions.clearIsProfileDeleted());
+        dispatch(authActions.logout());
+        localStorage.removeItem("userInfo");
+      }
+      , 2000);
+    
+    } catch (error) {
+      toast.error(error.response.data.message);
+      dispatch(profileActions.clearLoading());
     }
   };
 }

@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import "./comment-list.css";
 import Swal from 'sweetalert2'
 import UpdateCommentModel from "./UpdateCommentModel";
-function CommentList() {
+import Moment from 'react-moment';
+import { useDispatch, useSelector } from "react-redux";
 
+
+function CommentList({comments}) {
+
+  // redux states
+  const { user } = useSelector((state) => state.auth);
+
+  // react states
   const [updateComment, setUpdateComment] = useState(false)
   // Delete Comment handler
   const deleteCommentHandler = () => {
@@ -28,29 +36,35 @@ function CommentList() {
 
   return (
     <div className="comment-list">
-      <h4 className="comment-list-count">2 comments</h4>
-      {[1, 2].map((comment) => (
-        <div key={comment} className="comment-item">
+      <h4 className="comment-list-count">{comments?.length} comments</h4>
+      {comments?.map((comment) => (
+        <div key={comment._id} className="comment-item">
           <div className="comment-item-info">
-            <div className="comment-item-username">Momne Nessah</div>
-            <div className="comment-item-time">2 hours ago</div>
+            <div className="comment-item-username">{comment.username}</div>
+            <div className="comment-item-time">
+              <Moment fromNow ago>
+                {comment.createdAt}
+              </Moment>{" "}
+              ago
+            </div>
           </div>
-          <p className="comment-item-text">
-            Hello this is commentHello this is comment
-          </p>
-          <div className="comment-item-icon-wrapper">
-            <i
-              onClick={() => setUpdateComment(true)}
-              className="bi bi-pencil-square"
-            ></i>
-            <i onClick={deleteCommentHandler} className="bi bi-trash-fill"></i>
-          </div>
+          <p className="comment-item-text">{comment.text}</p>
+          {user && user._id === comment.user && (
+            <div className="comment-item-icon-wrapper">
+              <i
+                onClick={() => setUpdateComment(true)}
+                className="bi bi-pencil-square"
+              ></i>
+              <i
+                onClick={deleteCommentHandler}
+                className="bi bi-trash-fill"
+              ></i>
+            </div>
+          )}
         </div>
       ))}
       {updateComment && (
-        <UpdateCommentModel
-          setUpdateComment={setUpdateComment}
-        />
+        <UpdateCommentModel setUpdateComment={setUpdateComment} />
       )}
     </div>
   );

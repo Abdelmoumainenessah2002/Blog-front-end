@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import "./update-comment.css";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { updateComment } from "../../redux/apiCalls/commentApiCall";
 
-function UpdateCommentModel({ setUpdateComment}) {
-  const [text, setText] = useState("this is amazing");
+function UpdateCommentModel({ commentForUpdate, setUpdateComment}) {
+
+  const dispatch = useDispatch();
+
+  const [text, setText] = useState(commentForUpdate?.text);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -11,7 +16,9 @@ function UpdateCommentModel({ setUpdateComment}) {
     // validation
     if (text.trim() === "") return toast.error("Comment should be not empty");
     
-    console.log({ text });
+    // update comment
+    dispatch(updateComment(commentForUpdate?._id, { text }));
+    setUpdateComment(false);
   };
 
   return (

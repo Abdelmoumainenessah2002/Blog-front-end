@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import "./update-post.css";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePost } from "../../redux/apiCalls/postsApiCall";
 
 function UpdatePostModel({ post, setUpdatePost }) {
+  // redux states
+  const dispatch = useDispatch();
+
+
+  // react states
   const [title, setTitle] = useState(post.title);
   const [description, setDescription] = useState(post.description);
   const [category, setCategory] = useState(post.category);
 
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
 
-   const formSubmitHandler = (e) => {
-     e.preventDefault();
+    // validation
+    if (title.trim() === "") return toast.error("Post Title is required");
+    if (description.trim() === "")
+      return toast.error("Post Description is required");
+    if (category.trim() === "") return toast.error("Post Category is required");
 
-     // validation
-     if (title.trim() === "") return toast.error("Post Title is required");
-     if (description.trim() === "") return toast.error("Post Description is required");
-     if (category.trim() === "") return toast.error("Post Category is required");
-
-     console.log({ title, description, category });
-   }  
+    dispatch(updatePost({ title, description, category }, post._id));
+    setUpdatePost(false);
+  };
 
   return (
     <div className="update-post">
@@ -46,7 +54,7 @@ function UpdatePostModel({ post, setUpdatePost }) {
           </option>
           <option value="music">music</option>
           <option value="traveling">traveling</option>
-          <option value="traveling">sport</option>
+          <option value="sport">sport</option>
         </select>
         <textarea
           value={description}

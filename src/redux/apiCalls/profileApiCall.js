@@ -39,7 +39,40 @@ export function uploadProfilePhoto(newPhoto, userId) {
       // update user photo in local storage
       const user = JSON.parse(localStorage.getItem("userInfo"));
       user.profilePhoto = data?.profilePhoto;
-      console.log(user);
+      localStorage.setItem("userInfo", JSON.stringify(user));
+
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+
+// update user profile
+// upload profile photo
+export function updateProfile(userId, profile) {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.put(
+        `/api/users/profile/${userId}`,
+        profile,
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+
+      console.log(data);
+
+      dispatch(profileActions.updateProfile(data));
+
+      // update user photo in auth slice
+      dispatch(authActions.setUsername(data.username));
+
+      // update user photo in local storage
+      const user = JSON.parse(localStorage.getItem("userInfo"));
+      user.username = data?.username;
       localStorage.setItem("userInfo", JSON.stringify(user));
 
     } catch (error) {

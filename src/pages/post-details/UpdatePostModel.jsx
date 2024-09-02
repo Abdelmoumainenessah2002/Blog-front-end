@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./update-post.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "../../redux/apiCalls/postsApiCall";
+import { fetchCategories } from "../../redux/apiCalls/categotyApiCall";
 
 function UpdatePostModel({ post, setUpdatePost }) {
   // redux states
   const dispatch = useDispatch();
-
+  const { categories } = useSelector((state) => state.category);
 
   // react states
   const [title, setTitle] = useState(post.title);
@@ -26,6 +27,10 @@ function UpdatePostModel({ post, setUpdatePost }) {
     dispatch(updatePost({ title, description, category }, post._id));
     setUpdatePost(false);
   };
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   return (
     <div className="update-post">
@@ -52,9 +57,11 @@ function UpdatePostModel({ post, setUpdatePost }) {
           <option value="" hidden>
             Select A Category
           </option>
-          <option value="music">music</option>
-          <option value="traveling">traveling</option>
-          <option value="sport">sport</option>
+          {categories.map((category) => (
+            <option key={category._id} value={category.title}>
+              {category.title}
+            </option>
+          ))}
         </select>
         <textarea
           value={description}

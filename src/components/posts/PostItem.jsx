@@ -1,7 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function PostItem({post}) {
+function PostItem({post, username, userId}) {
+  
+  const profileLink = userId ? `/profile/${userId}` : `/profile/${post?.user?._id}`;
+  
   return (
     <div>
       <div className="post-item">
@@ -12,8 +15,8 @@ function PostItem({post}) {
           <div className="post-item-info">
             <div className="post-item-author">
               <strong>Author: </strong>
-              <Link to={`/profile/${post?.user?._id}`} className="post-item-username">
-                {post?.user.username}
+              <Link to={profileLink} className="post-item-username">
+                {username ? username : post?.user.username}
               </Link>
             </div>
             <div className="post-item-date">

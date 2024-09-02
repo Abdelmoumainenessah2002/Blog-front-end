@@ -88,8 +88,8 @@ function Profile() {
         </div>
         <h1 className="profile-username">{profile?.username}</h1>
         <p className="profile-bio">
-          {profile?.bio
-            ? profile?.bio
+          {profile?.Bio
+            ? profile?.Bio
             : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, quidem!"}
         </p>
         <div className="user-date-joined">
@@ -116,7 +116,7 @@ function Profile() {
         Delete Your Account
       </button>
       {updateProfile && (
-        <UpdateProfileModel setUpdateProfile={setUpdateProfile} />
+        <UpdateProfileModel profile={profile} setUpdateProfile={setUpdateProfile} />
       )}
     </section>
   );

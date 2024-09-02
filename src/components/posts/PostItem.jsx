@@ -6,31 +6,31 @@ function PostItem({post}) {
     <div>
       <div className="post-item">
         <div className="post-item-image-wrapper">
-          <img src={post.image} alt="" className="post-item-image" />
+          <img src={post?.image.url} alt="" className="post-item-image" />
         </div>
         <div className="post-item-info-wrapper">
           <div className="post-item-info">
             <div className="post-item-author">
               <strong>Author: </strong>
-              <Link to={`/profile/1`} className="post-item-username">
-                {post.user.username}
+              <Link to={`/profile/${post?.user?._id}`} className="post-item-username">
+                {post?.user.username}
               </Link>
             </div>
             <div className="post-item-date">
-              {new Date(post.createdAt).toDateString()}
+              {new Date(post?.createdAt).toDateString()}
             </div>
           </div>
           <div className="post-item-details">
-            <h4 className="post-item-title">{post.title}</h4>
+            <h4 className="post-item-title">{post?.title}</h4>
             <Link
-              to={`/posts/categories/${post.category}`}
+              to={`/posts/categories/${post?.category}`}
               className="post-item-category"
             >
-              {post.category}
+              {post?.category}
             </Link>
           </div>
           <p className="post-item-description">
-            {post.description}
+            {post?.description}
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. spernatur,
             asperiores quam iure tenetur,autem fugiat deserunt dolores dicta eum
             pariaturdolor voluptate consequuntur dolore eveniet eaque nobis
@@ -40,7 +40,7 @@ function PostItem({post}) {
             voluptate consequuntur dolore eveniet eaque nobis exercitationem
             placeat delectus.
           </p>
-          <Link to={`/post/details/${post._id}`} className="post-item-link">
+          <Link to={`/post/details/${post?._id}`} className="post-item-link">
             Read More...
           </Link>
         </div>

@@ -5,12 +5,14 @@ import {useNavigate } from "react-router-dom";
 import "./create-post.css";
 import { createPost } from "../../redux/apiCalls/postsApiCall";
 import { ThreeDots } from "react-loader-spinner";
+import { fetchCategories } from "../../redux/apiCalls/categotyApiCall";
 
 const CreatePost = () => {
 
   // redux hooks 
   const dispatch = useDispatch();
   const {isPostCreated, loading} = useSelector((state) => state.post);
+  const { categories } = useSelector((state) => state.category);
 
   // react router hook
   const navigate = useNavigate();
@@ -50,6 +52,10 @@ const CreatePost = () => {
     }
   } , [isPostCreated, navigate]);
 
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
   return (
     <section className="create-post">
       <h1 className="create-post-title">Create New Post</h1>
@@ -69,9 +75,11 @@ const CreatePost = () => {
           <option disabled hidden value="">
             Select a Category
           </option>
-          <option value="life">Life</option>
-          <option value="music">Music</option>
-          <option value="sport">Sport</option>
+          {categories.map((category) => (
+            <option key={category._id} value={category.title}>
+              {category.title}
+            </option>
+          ))}
         </select>
         <textarea
           value={description}

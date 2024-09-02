@@ -52,6 +52,14 @@
     font-weight: 500;
     cursor: pointer;
     margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.create-post-loader {
+    margin-right: 50px;
 }
 
 @media (max-width: 820px) {

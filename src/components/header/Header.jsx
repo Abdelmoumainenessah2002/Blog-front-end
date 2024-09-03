@@ -8,11 +8,14 @@ const Header = () => {
     const [toggle, setToggle] = useState(false);
 
   return (
-    <header className="header">
-      <HeaderLeft toggle={toggle} setToggle={setToggle} />
-      <NavBar toggle={toggle} setToggle={setToggle} />
-      <HeaderRight />
-    </header>
+    <>
+      <header className="header">
+        <HeaderLeft toggle={toggle} setToggle={setToggle} />
+        <NavBar toggle={toggle} setToggle={setToggle} />
+        <HeaderRight />
+      </header>
+      <div className="header-blank"></div>
+    </>
   );
 };
 

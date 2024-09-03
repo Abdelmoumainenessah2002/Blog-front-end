@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AdminSidebar from "./AdminSidebar";
 import "./admin-table.css";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCategory, fetchCategories } from "../../redux/apiCalls/categotyApiCall";
+
 
 function CategoriesTable() {
+
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
   // Delete User handler
-  const deleteCategoryHandler = () => {
+  const deleteCategoryHandler = (categoryId) => {
     Swal.fire({
       title: "Are you sure you want to delete this category?",
       text: "You won't be able to revert this!",
@@ -17,6 +28,7 @@ function CategoriesTable() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        dispatch(deleteCategory(categoryId));
         Swal.fire({
           title: "Deleted!",
           text: "Category has been deleted.",
@@ -41,18 +53,18 @@ function CategoriesTable() {
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                <tr key={item}>
-                  <td>{item}</td>
+              {categories.map((item, index) => (
+                <tr key={item._id}>
+                  <td>{index + 1}</td>
                   <td>
-                    <b>music</b>
+                    <b>{item.title}</b>
                   </td>
                   <td>
                     <div className="table-button-group">
                       <button>
-                        <Link to="/posts/categories/cars">View Category</Link>
+                        <Link to={`/posts/categories/${item.title}`}>View Category</Link>
                       </button>
-                      <button onClick={deleteCategoryHandler}>
+                      <button onClick={() => deleteCategoryHandler(item._id)}>
                         Delete Category
                       </button>
                     </div>

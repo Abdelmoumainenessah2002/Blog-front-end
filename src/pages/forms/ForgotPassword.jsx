@@ -2,8 +2,13 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import {useDispatch} from "react-redux";
+import { forgotPassword } from "../../redux/apiCalls/passwordApiCall";
 
 const ForgotPassword = () => {
+
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
 
   // form submit handler
@@ -12,7 +17,7 @@ const ForgotPassword = () => {
 
     if (email.trim() === "") return toast.error("Email cannot be empety");
 
-    console.log({ email });
+    dispatch(forgotPassword(email));
   };
 
   return (

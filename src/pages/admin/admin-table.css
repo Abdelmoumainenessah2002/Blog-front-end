@@ -54,7 +54,7 @@ tr:hover {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .table-username {

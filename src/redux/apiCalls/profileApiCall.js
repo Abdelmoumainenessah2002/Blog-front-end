@@ -98,14 +98,56 @@ export function deleteProfile(userId) {
 
       setTimeout(() => {
         dispatch(profileActions.clearIsProfileDeleted());
-        dispatch(authActions.logout());
-        localStorage.removeItem("userInfo");
       }
       , 2000);
     
     } catch (error) {
       toast.error(error.response.data.message);
       dispatch(profileActions.clearLoading());
+    }
+  };
+}
+
+
+// get users count (for admin dashbord)
+export function getUsersCount() {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.get(
+        `/api/users/count`,
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+
+      dispatch(profileActions.setUsersCount(data));
+    
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
+
+
+// get all users profiles (for admin dashbord)
+export function getAllUsersProfile() {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await request.get(
+        `/api/users/profile`,
+        {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        }
+      );
+
+      dispatch(profileActions.setProfiles(data));
+    
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   };
 }
